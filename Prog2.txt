@@ -1,0 +1,204 @@
+package aaa;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+
+public class Prog11 {
+
+	public static String Msg="";
+		public static void main(String[] args) throws Exception {
+			
+			
+			String dbConnectionURL="jdbc:oracle:thin:@localhost:1522:orcl";
+			String usernm="bud";
+			String password="bud";
+			String sqlQuery="select * from student";
+			
+			String []rec = dbConnectionURL.split(":");
+			String f=rec[0];
+			String s=rec[1];
+			System.out.println (f + "=" + s);
+			
+			for (int i=0;i<rec.length; i ++)
+				System.out.println("rec val " + i + "." + rec[i]);
+			
+			System.exit(0);
+			
+			
+			
+			
+		//  1)  Get all the Input Info
+			String retrec=GetInputInfo("C:\\classinterview\\config2.properties");
+			System.out.println("Retrec=" + retrec);
+
+		//  Invoke Proper URL
+			String url=retrec.split(",")[3];
+			String exph1value=retrec.split(",")[2];
+		//String usernm=retrec.split(",")[0];
+			
+			
+			 WebDriver driver=invokeandverifyur( url,exph1value );
+			 String pstid="100";
+			 
+			 populatescreen (driver,pstid);
+			
+		      readdb(  dbConnectionURL, usernm, password,sqlQuery) ;
+		      
+			System.exit(0);
+			
+			readdb( dbConnectionURL, usernm, password, sqlQuery) ;
+			
+			System.out.println(retrec);
+			
+			
+		}
+		
+		public static WebDriver  invokeandverifyur(String url,String exph1value)
+		{
+			
+			
+			System.out.println("Google Chrome is selected");
+			System.setProperty("webdriver.chrome.driver","C:\\classinterview\\AllDrivers\\chromedriver.exe\\");
+			WebDriver driver = new ChromeDriver();
+			driver.get(url);
+			String acth1value = driver.findElement(By.xpath("//h1")).getText(); 
+			System.out.println("h1value=" + acth1value);
+			boolean result=compareString (acth1value,exph1value);
+			System.out.println("result=" + result);
+			if (!result)
+				
+				writereport(Msg);
+			return driver;
+			
+		} 
+		
+		
+		public static void writereport(String Msg)
+		{
+			System.out.println("writing Reports ...");
+			
+		}
+		
+		public static boolean  compareString(String str1,String str2)
+		{
+		
+			
+			System.out.println(str1 + "=" + str1.length() +"="  + str2 + "=" + str2.length());
+			
+			if (str1.equalsIgnoreCase(str2 ) )
+				return true;
+			else
+				return false;
+			
+		}
+
+		
+		
+		
+		
+		/*
+		 *  Get all the Input values from config.properties 
+		 * 
+		 */
+		public static String GetInputInfo( String Filenm) throws IOException
+	    {
+			
+			
+	     Properties  prop = new Properties();
+	    
+	     FileInputStream input = new FileInputStream(Filenm);
+	     prop.load(input);
+	     String puserid=prop.getProperty("userid");
+	     String ppassword=prop.getProperty("password");
+	     String ph1=prop.getProperty("H1");
+	     String purl=prop.getProperty("url");
+	     String retrec=puserid + "," + ppassword + "," + ph1  + "," + purl ;
+	     return retrec;
+	     
+	       }
+		
+		
+		public static void populatescreen (WebDriver driver,String pstid)
+		
+		{
+			
+			
+			driver.findElement(By.id("/html/body/form/table/tbody/tr[1]/td[1]")).sendKeys(pstid);
+			driver.findElement(By.id("//*[@id='subbtn']")).click();
+			
+			
+		}
+		
+		public static void readdb( String dbConnectionURL,String usernm,String password,String sqlQuery) throws Exception
+		{
+			ResultSet rs=null ;
+			Statement statement=null;
+			Connection cn=null;
+			try {
+		Driver driver = new oracle.jdbc.OracleDriver();
+		DriverManager.registerDriver(driver);
+
+		// Create a connection from the Driver Manager.
+		 cn = DriverManager.getConnection(dbConnectionURL, usernm, password);
+		// Open a statement and run the query fetching a resultset
+		 statement  = cn.createStatement();
+		 rs = statement.executeQuery(sqlQuery);
+
+				int i = 0;
+			while (rs.next()) {
+				
+				Map<String, String> recordVal = new HashMap<String, String>();
+					System.out.println("Checking columns value : " + rs.getString(2));
+					recordVal.put("x"+i, rs.getString(1));
+					i++;
+				}
+		
+	} catch (SQLException sqlEx) {
+		System.out.println("Below SQL exception happened while connecting and executing sqlQuery to Database.");
+		System.out.println(sqlEx.getStackTrace());
+		System.out.println(sqlEx);
+		sqlEx.printStackTrace();
+		throw sqlEx;
+	} catch (Exception ex) {
+		System.out.println("Below exception happened while connecting and executing sqlQuery to Database.");
+		System.out.println(ex.getStackTrace());
+		System.out.println(ex);
+		ex.printStackTrace();
+		throw ex;
+	} finally {
+		if (rs != null)
+			rs.close();
+		if (statement != null)
+			statement.close();
+		if (cn != null)
+			cn.close();
+	}
+		
+	}
+
+		
+	// ===============================================================================================	
+		
+		
+		
+	
+
+
+
+	
+
+}
