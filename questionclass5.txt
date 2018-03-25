@@ -1,0 +1,80 @@
+1)  Read Config File and get the Excel FileNm, ReportFilenm,AutomationLog File,dbconn,URL
+2)  Read ExcelFileNm and Get  TCNO,TCDesc,SQL,Input
+3)  Split the Input and get URL,Screen Population elements(Userid,password)
+3)  Invoke the URL
+5)  Populate the Screen 
+6)  Click on Login
+6a)  Screen Title="welcome" then Error="N" else ERROR="Y"
+7)  Vrify Userid,Password is in the Database and set the Indicator gotit="Y"
+
+8)  ===========================================================================
+
+if gotit="Y" (Validuserid and Password in the database) and ERROR="N"
+   wrieexcel(Status="Pass")
+else
+if gotit="N" (INValiduserid and Password in the database) and ERROR="N"
+   wrieexcel(Status="Fail")
+else
+if gotit="Y" (Validuserid and Password in the database) and ERROR="Y"
+   wrieexcel(Status="Fail")
+else
+if gotit="N" (INValiduserid and Password in the database) and ERROR="Y"
+   wrieexcel(Status="Pass")
+
+   
+
+==============================================================================
+10)  Go back to Step2
+
+
+
+
+
+Requirement:
+
+BackLog Grooming
+1)  It will be a Jira Story
+
+ Task  ==> write the Story
+
+2) Sprint Planning
+
+13 ==> 4 days
+5  ==> 2 days 
+
+
+2)  Test Cases 
+
+
+1. Verify testers is not able to login   
+2. AnyBody Changed from Other Designation to tester
+3. All other Test Cases 
+
+
+
+Database :  John  ==>  Tester
+            Nancy ==> Tester from Developer
+            Rabeca    Supervisor
+
+
+
+Automation :  Which function have validation Routine
+
+
+Github  ==> Master
+            PTC90  ==> Branch
+
+Jenkins ==> Github  ==>  BranchName :  PTC90
+
+
+
+
+
+
+
+
+
+
+
+
+

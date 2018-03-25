@@ -1,0 +1,125 @@
+
+1.  Create GitHub Account
+2.  Git Clone of your repository
+3.  Add todays Class File 
+4.  Commit 
+5. Merge with The Master
+6.  Verify the GitHub
+
+
+1.  Create GitHub Account
+2.  Git Clone of your repository
+2a. Create a Branch
+3.  Add todays Class File 
+4.  Commit 
+5. Merge with The Master
+6. Verify the GitHub
+
+// ===========================================================
+//            Github   ==> Source Control or Version Control
+//          Github.com ==> Open Your account 
+// =========================================================
+
+adb
+cd \git
+dir
+cd ..
+// ====================================================
+//         git clone 
+// ================================================
+
+mkdir git1
+cd git1 
+git clone https://github.com/budftf/Learn-Testing
+
+// ====================================================
+//              Create a New Branch and add/Modify File 
+//              Use git status to check it
+// =====================================================
+
+git branch newbr     ==> Create a New Branch
+git checkout newbr   ===> I am in NewBr
+
+git pull https://github.com/budftf/Learn-Testing
+git status
+git add .
+git status
+
+// =================================================
+//              Upload to git 
+// ==================================================
+
+#git commit -m 'added gitcommands'
+git commit 
+git checkout master
+git merge newbr 
+git push -u origin master
+// ===============================================
+
+history
+git status
+f7 >  x
+doskey /history
+doskey /history  > gitcomm
+// ===================================================================
+//           Selenium  Code 
+//
+//
+//       Web Table
+//       DropDownList
+//       Get all the Links from Web Page
+// ==================================================================
+//  Task ==>  Get the Data Table from EMP Table and Return the Data in the 
+//            main program through Hashmap
+// =====================================================================
+//   What Is thread and what is Process 
+//   What is Multithreading and what is pros and cons of Multithread
+
+
+// ===================================================================
+//          Java Collections
+//
+//      Arrays
+//      ArrayList
+//      Hashmap
+//      HashTable
+//      List
+//      set
+//      LinkedHashMapset
+// =============================================================
+
+                   Ordered          SynChronized        Faster         Fixed    Reverse Order Duplicate
+
+Array                                                                    Y                                                           Y
+ArrayList                             N                                  N
+HashMap              N                N    Allow                         N
+HashTable                             Y                    N             N
+TreeMap                                              Traverse the Key    N          Y
+Hashmapset                            N                                             N
+LinkedHashSet       Y                          
+vector
+Queus
+List                Y
+// ==================================================================================
+
+
+WebDriver _driver = new InternetExplorerDriver();
+    _driver.navigate().to("http://www.google.co.in/");
+    List <WebElement> alllinks = _driver.findElements(By.tagName("a"));
+
+    for(int i=0;i<alllinks.size();i++)
+        System.out.println(alllinks.get(i).getText());
+
+    for(int i=0;i<alllinks.size();i++){
+        alllinks.get(i).click();
+        _driver.navigate().back();
+    }
+
+
+// ==============================================================================
+1.   Get all the Links in Student Application  (SIS)   BestBuy or Google
+2.   Click each Link and verify Titles are correct 
+3.   Verify Link Name in the Datbase Table 
+4.  Produce Reports 
+
+=========================================================================

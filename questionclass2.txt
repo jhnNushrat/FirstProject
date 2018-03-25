@@ -1,0 +1,330 @@
+// =======================================================================================================
+//                                getdb
+// ====================================================================================================
+
+ dbprog db = new dbprog();		 
+  db.getdb(sql);
+
+Task-1
+=======
+Mainprog.java
+util ut = new util();
+
+String parm="jjj,1111111XXXXjohn,333333333XXXXnancy,111111";
+ut.splitfunc(parm);
+
+util.java
+public static  void splitfunc(String parm)
+{
+
+    String [] splitrec=parm.split("XXXX");
+    for (int i=0;i<splitrec.length;i++)
+    {
+         system.out.println(splitrec[i]);   //jjjj,11111
+
+          String nm = splitrec[i].split(",")[0];  //  jjj   //splitrec[0]="jjj,11111"
+          String Phno = splitrec[i].split(",")[1];//   11111
+          System.out.println("Rec=" + i + ". " +  "name=" + nm  + " Phoneno=" + Phno);
+
+    }
+
+       
+         }
+
+Deliverable ==> Tomorrow
+
+Task -2 
+
+Create a Test String 
+ts="John,1111"
+ts="John,1111XXXXJohn1,1112"
+ts="John,1111XXXX"John1,1112XXXXJohn3,1113XXXX"
+
+nm="john"
+phno="1111"
+if parm=1
+ts=nm + "," + phno
+system.out.println(ts)
+
+if parm=2
+nm="john" + "1"
+phno="1111"
+phno.parseInt(phno) + 1
+ts=nm + "," + phno
+system.out.println(ts)
+
+
+if parm=3
+nm="john" + "1"
+phno="1111"
+phno.parseInt(phno) + 1
+ts=nm + "," + phno
+
+nm="john" + "2"
+phno.parseInt(phno) + 1
+ts=nm + "," + phno
+
+system.out.println(ts)
+
+
+
+
+
+Deliverable ==> wednesday
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
+dbprog  dbp = new dbprog();
+dbp.getdb(sql)
+dbp.getdb(sql,'11')
+
+public class  dbprog {
+	
+//getdb ==> Function to get the value
+
+public static String  getdb(String sql,String x)
+
+public static String  getdb(String sql)
+
+{
+	
+	
+	//	String sql="select * from student where stno ='3'";
+	// String sql="select * from student";
+
+  // Calling the function and passing the query
+   //  String res=getdb(sql);
+
+   //splitting the value to get stnm
+  //   String nm=res.split(",")[1];
+   
+  // comparing with stnm Prithul or aaa
+   //  if (nm.equals("Prithul")) 
+  	//     System.out.println("Equal");   
+  	//     System.out.println("res from function = "+ res); 
+    // }
+	
+	     String res="";
+	        try
+	        {
+	        	// Connection for Oracle
+	        	Class.forName("oracle.jdbc.driver.OracleDriver");
+	       		Statement st=null;
+		        ResultSet rs = null;
+	                String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	 	 	Connection cn = DriverManager.getConnection(url, "c##bud", "bud" );
+	                System.out.println("Connection Worked");
+	                
+	             // create the statement object 
+	                st = cn.createStatement();
+	                
+	            //  execute query
+                  rs = st.executeQuery( sql );
+                    //  res=""
+                    //  res = jjj,212222222
+                    //        jjj,21222222XXXXjohn,333333333XXXXnancy,111111
+	               	while(rs.next())
+	                {
+                                 
+	               		res=res + rs.getString(1) + "," + rs.getString(2)  + "xxxx" ;
+	                }
+	               	cn.close();
+	                }
+	           catch (Exception e)
+	                  {
+	                     e.printStackTrace();
+	                     System.out.println("Connection Failed");
+	                  }
+	        System.out.println(res);
+                    return res;
+
+	              }
+
+
+	          }
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==============================================================================================
+//              ReadExcel
+// =============================================================================================
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+
+public class excel1 {
+
+	    public static void readexcel(String ExcelFile) {
+
+	        try {
+
+	            FileInputStream excelFile = new FileInputStream(new File(ExcelFile));
+	            Workbook workbook = new HSSFWorkbook(excelFile);
+	            org.apache.poi.ss.usermodel.Sheet datatypeSheet = workbook.getSheetAt(0);
+	            Iterator<Row> iterator = datatypeSheet.iterator();
+
+	            while (iterator.hasNext()) {
+
+	                Row currentRow = iterator.next();
+	                Iterator<Cell> cellIterator = currentRow.iterator();
+
+	                while (cellIterator.hasNext()) {
+
+	                    Cell currentCell = cellIterator.next();
+	                    //getCellTypeEnum shown as deprecated for version 3.15
+	                    //getCellTypeEnum ill be renamed to getCellType starting from version 4.0
+	                    if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
+	                    	
+	                        System.out.print(currentCell.getStringCellValue() + "--");
+	                        
+	                        
+	                        
+	                        
+	                    } else if (currentCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+	                        System.out.print(currentCell.getNumericCellValue() + "--");
+	                    }
+
+	                }
+	                System.out.println();
+
+	            }
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	        	
+	        	
+	            e.printStackTrace();
+	        }
+
+	    }
+	    
+
+		public static void writeExcel() throws FileNotFoundException, IOException
+		{
+			
+			
+			   HSSFWorkbook workbook = new HSSFWorkbook();
+		        HSSFSheet sheet = workbook.createSheet("Java Books");
+		         
+		        Object[][] bookData = {
+		                {"TCNO", "TCCASE DESCRIPTION", "Expected Result", "Actual Result","P/F"},
+		                {"TC01", "Validate Userid and Password", "should be able to Login","Logged in","Passed"},
+		                {"TC02", "Validate Userid and Password", "should be able to Login","Logged in","Passed"},
+		                {"TC03", "Validate Userid and Password", "should be able to Login","Logged in","Passed"}
+			             
+		        };
+		 
+		        int rowCount = 0;
+		         
+		        for (Object[] aBook : bookData) {
+		            Row row = sheet.createRow(++rowCount);
+		             
+		            int columnCount = 0;
+		             
+		            for (Object field : aBook) {
+		                Cell cell = row.createCell(++columnCount);
+		                if (field instanceof String) {
+		                    cell.setCellValue((String) field);
+		                } else if (field instanceof Integer) {
+		                    cell.setCellValue((Integer) field);
+		                }
+		            }
+		             
+		        }
+		         
+		         
+		        try (FileOutputStream outputStream = new FileOutputStream("c:\\installation\\Report.xls")) {
+		            workbook.write(outputStream);
+		        }
+		    }
+		 
+			
+			 
+}
+
+
+// ===========================================================================================
+
+
+public class readconfig {
+	
+		public static String  readprop1(String propFileName) {
+			
+	String ExcelFilenm="";
+	{
+	try {
+		
+		
+				Properties prop = new Properties();
+			
+				
+				FileInputStream	inputStream =  new FileInputStream(propFileName);
+				 
+			
+				if (inputStream != null) {
+					prop.load(inputStream);
+				} else {
+					throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+				}
+	 
+				Date time = new Date(System.currentTimeMillis());
+	 
+				// get the property value and print it out
+				 ExcelFilenm= prop.getProperty("excel");
+
+
+
+				System.out.println("Excel=" + ExcelFilenm );
+				
+				
+				
+				
+				
+			} catch (Exception e) {
+				System.out.println("Exception: " + e);
+			} finally {
+				
+			}
+			
+		
+	
+	return ExcelFilenm ;
+	}
+
+}
+
+
+}
+
+
+
+
+

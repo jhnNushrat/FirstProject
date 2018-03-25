@@ -1,0 +1,210 @@
+public class ojdbcconnection
+
+{
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+	// Database credentials
+	static final String USER = "project";
+	static final String PASS = "project";
+	static final String tblnm = "Orders";
+
+	public static void main(String[] args) throws IOException {
+
+		String Filenm = "c:\\classinterview\\config.properties";
+
+		String retprop = getproperties(Filenm);
+		String[] allprop = retprop.split(",");
+		String USER = allprop[0];
+		String PASS = allprop[1];
+
+		String retrec = callreaddb(DB_URL, USER, PASS, tblnm);
+
+		// ================================================================
+		// To get the rows Split on XXX
+		// To Get the Columns Split on ,
+		// ===============================================================
+
+		String[] row = retrec.split("XXX"); // john,1,12XXXnancy,2,12XXXrabeca
+											// row[0] row[1] row[2]
+		// String nm=row[0].split(",")[0];
+		// String age=row[0].split(",")[1];
+		// String dept=row[0].split(",")[2];
+
+		for (int i = 0; i < row.length; i++) {
+			System.out.println("row" + i + "." + row[i]); // john,1,12
+															// Nancy,2,12
+
+			String nm = row[i].split(",")[0];
+			String age = row[i].split(",")[1];
+			String dept = row[i].split(",")[2];
+
+			// Screenload(nm,age,dept); // john,1,12
+			// Nance=y,2,12
+
+		}
+	}
+
+	public static String getproperties(String Filenm1) throws IOException
+
+	{
+
+		Properties prop = new Properties();
+
+		FileInputStream input = new FileInputStream(Filenm1);
+		prop.load(input);
+		String puserid = prop.getProperty("userid");
+		String ppassword = prop.getProperty("password");
+		String ph1 = prop.getProperty("H1");
+		String purl = prop.getProperty("url");
+		String retrec1 = puserid + "," + ppassword + "," + ph1 + "," + purl;
+		return retrec1;
+
+	}
+
+	public static String callreaddb(String DB_URL, String USER1, String PASS1, String tblnm) {
+		Connection conn = null;
+		Statement stmt = null;
+		String retrec1 = "";
+
+		try {
+			// STEP 2: Register JDBC driver
+			Driver driver = new oracle.jdbc.OracleDriver();
+			DriverManager.registerDriver(driver);
+
+			// STEP 3: Open a connection
+			System.out.println("Connecting to a selected database...");
+			conn = DriverManager.getConnection(DB_URL, USER1, PASS1);
+			System.out.println("Connected database successfully...");
+
+			// STEP 4: Execute a query
+			System.out.println("Creating statement...");
+			stmt = conn.createStatement();
+
+			String sql = "SELECT * from " + tblnm;
+			ResultSet rs = stmt.executeQuery(sql);
+			// STEP 5: Extract data from result set
+			int i = 0;
+			while (rs.next()) {
+
+				// Map<String, String> recordVal = new HashMap<String,
+				// String>();
+				System.out.println("Checking columns value : " + rs.getString(1) + " | " + rs.getString(2) + " | "
+						+ rs.getString(3));
+
+				retrec1 = retrec1 + rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + "XXX"; // John,12,1XXXNancy,13,2xxx
+																												// Rabeca
+
+				// recordVal.put("x"+i, rs.getString(1));
+				i++;
+			}
+			rs.close();
+		} catch (SQLException se) {
+			// Handle errors for JDBC
+			se.printStackTrace();
+		} catch (Exception e) {
+			// Handle errors for Class.forName
+			e.printStackTrace();
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					conn.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		} // end try
+		System.out.println("Goodbye!");
+		return retrec1;
+
+	}// end main
+
+}
+
+// ============================================================================
+
+	
+Click here to Reply or Forward
+
+
+
+
+
+
+Payentry.com:
+
+
+
+Read Config File and Get Excel File Name   
+                
+Read the Excel and Get the URL,INPUT and Expected Result
+split
+invoke the URL
+Split INPUT and get Userid,Password
+populate the screen from Input split
+
+
+Click on Login
+Connect to db and Verify userid,pass word exist
+if exist and welcome screen then Status="passed"
+Write to Excel the Result
+
+Crete Package UTIL
+1) dbprog
+2) Read excel
+3) ReadConfig
+4) Excelwrite
+
+String Excelfilenm=readconfig(C:\\test\\config.properties");
+String  Res = readExcel(Excelfilenm)   //TCNO,TCDESC,INPUT,EXP
+String TCNO=Res.split(";")[0]
+String TCDESC=Res.split(";")[1]
+String INPUT=Res.split(";")[2]
+String User=INPUT.split(',')[1]
+String PASS=INPUT.split(',')[2];
+String SQL=INPUT.split(',')[3];
+
+String URL=INPUT.split(',')[0];
+String status="";
+driver.get(URL)
+driver.findElements(By.id('xxx')).sendKeys(User);
+driver.findElements(By.id('xxx')).sendKeys(PASS);
+driver.findElements(By.id('login')).click();
+String Title=driver.getTitle();
+Boolean res1=getdb(SQL);
+if (res1) && (Title.equals('welcome'))
+{
+  ActRES="Loggedin"
+  status="passed";
+}
+WriteExcel (TCNO,TCDESC,INPUT,EXPRES,ACTRES,status);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Userid
+Password
+
+
+Login  
+
+
+TCNO     TCDESC            Input     Expected        Actual   P/F   
+
+TC01    validate Login    xxxx         login        Error      F
+
+

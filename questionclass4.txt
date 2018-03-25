@@ -1,0 +1,113 @@
+
+
+Any  System
+
+
+INPUT             PROCESS               OUTPUT
+
+
+
+
+Any Framework
+
+
+Test Cases 
+                        Process the Test Case        database Update
+Test Data                                            Report (Screen display or Print
+
+Feature File
+
+
+
+Health Care  EDI  Transaction:
+
+834   Enrollment
+837    Claims
+835    Payment
+
+
+https://getworkforce.com/ansi-834-file-layout/
+https://www.uhc.com/content/dam/uhcdotcom/en/HIPAAandEDI/CompanionGuide_834_HIPAA_834_004010X091A1.pdf
+INS*Y*18*030*XN*A*E**FT~
+REF*OF*152239999~
+REF*1L*Blue~
+DTP*336*D8*20070101~
+NM1*IL*1*BLUTH*LUCILLE****34*152239999~
+N3*224 N DES PLAINES*6TH FLOOR~
+N4*CHICAGO*IL*60661*USA~
+DMG*D8*19720121*F*M~
+HD*030**VIS**EMP~
+DTP*348*D8*20111016~
+
+
+INS*N*19*030*XN*A*E***N*N~
+REF*OF*152239999~
+REF*1L*Blue~
+DTP*357*D8*20111015~
+NM1*IL*1*BLUTH*BUSTER~
+N3*224 N DES PLAINES*6TH FLOOR~
+N4*CHICAGO*IL*60661*USA~
+DMG*D**19911015*M-HD*030**VIS~
+DTP*348*D8*20110101~
+DTP*349*D8*20111015~
+
+
+a)  Create EDI Files for Subscriber who has two children (son) and 1 Daughterand 1 spouse 
+    Employee  John  is 55 Years Old 
+              Nancy    45
+              Robert   20
+              Mac      18
+              Rabeca   10
+
+
+
+   Create Different scenarios for the enrollment
+   Create Test Cases 
+
+   Create Database Table to store the Data 
+   Create HTML Screen to see the Status of Employee or Dependent
+
+EDI Files  ==> Processed => Saved Into Oracle  ==> HTML Screen accesing Data 
+
+
+   Deliverables  Next Monday 
+
+
+Excel
+Name  		Address   DOB    Gender   Mar Status   Emp/Dependent
+John  Smith       2, NY    01011963 M     M                EMp
+Nancy Smith       2, NY    01011970 F     M                Dep
+
+
+
+mock.dat
+
+INS*Y*18*030*XN*A*E**FT~
+REF*OF*152239999~
+REF*1L*Blue~
+DTP*336*D8*20070101~
+NM1*IL*1*XXXXXX*YYYYY****34*152239999~
+N3*XXXXX*YYY~
+N4*CHICAGO*IL*60661*USA~
+DMG*D8*19720121*F*M~
+HD*030**VIS**EMP~
+DTP*348*D8*20111016~
+
+// =======================================================================
+
+
+  
+    
+
+
+Child INS*Y   ==>  Employee
+     INS*N   ==>  Dependent
+
+
+ Mock the Data  and Create Segments for 1 Family who has spouse,sun and daughter
+
+
+
+
+
+

@@ -1,0 +1,235 @@
+
+
+  Jira   ==>  Stories   ==> Backlog Grooming  Go through the stories
+
+
+FTF-1234 :
+
+  As a QA , we should be able to validate the Credit Score of an Individual so that they
+can apply for  Loan
+
+
+SW-1234
+
+ As a QA , I should be able to test to sell the gift card to the web users and and also able to keep track of the 
+Balances 
+
+
+
+Test Scenarios:
+
+FTF-1234:
+
+   Type the Name  and verify the Credit Score   (Database Individual name  and Credit Score)
+
+                                 Send the web service request  and get the Response and then display
+
+
+
+SW - 1234
+
+
+Test Case :   Buy a Gift Card  and send it in Email
+              Buy a Gift Card  and send it through USps
+
+
+
+
+Feature File :
+
+     Given I am in SW Airlines Gift Card URL "https://www.southwest.com/gift-card/create-card.html"
+     when I type "Amount" , "Qty","Delivery Method","EmailRecepient1","EmailRecipient2"
+     And Add Message "To","From","Message"
+     And click on "continue"
+     Then "Credit Card Info" Appears 
+
+
+Task 4:
+
+Git Hub:
+
+   1)  Create a GitHub Account
+   2)   Create the Application Structure 
+
+          src/main/java
+          src/test/java 
+
+        Create a Maven project in Eclipse
+        Put the Program 
+
+        Push it to GitHub
+
+
+
+Task 3:
+
+3)  Install Jenkins 
+    Start Jenkins
+
+    localhost:8080
+
+  Create a Hello Program in java 
+  Run the Hello Program through Jenkins Build 
+  Click on Configure :
+
+   From dos command
+
+set PATH=C:\Program Files\Java\jdk1.8.0_162;%PATH%
+  javac Hello.java
+  java Hello
+
+
+
+
+
+   
+
+
+Write the Logic 
+Task 2:
+
+
+    Invoke the URL
+    Populate the screen with HardCoded Value 
+    Click on Continue 
+    next screen appears  ( It added)  pass=true
+
+
+
+Design the Report
+report.xls 
+
+
+
+             Gift Card Automation Report                   03/03/18
+
+TC1   Buy Gift Card      Should be added          Added    P/F 
+
+
+// ============================================================================
+
+
+
+
+Task 1:
+=========
+
+
+public static void writereport(String REPORTFILE)
+{
+       Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+        /* CreationHelper helps us create instances for various things like DataFormat, 
+           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
+        CreationHelper createHelper = workbook.getCreationHelper();
+
+        // Create a Sheet
+        Sheet sheet = workbook.createSheet("Gift Card Report");
+
+        // Create a Font for styling header cells
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 16);
+        headerFont.setColor(IndexedColors.YELLOW.getIndex());
+
+        // Create a CellStyle with the font
+        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+
+        // Create a Row
+        Row headerRow = sheet.createRow(0);
+
+        // Creating cells
+// ===========================================================
+//           dont do this 
+// =========================================================
+        for(int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+            cell.setCellStyle(headerCellStyle);
+        }
+
+// ==================================================================
+
+
+
+            Cell cell = headerRow.createCell(0);
+            cell.setCellValue("TCNO");
+            cell.setCellStyle(headerCellStyle);
+
+
+            Cell cell = headerRow.createCell(1);
+            cell.setCellValue("TCDesc");
+            cell.setCellStyle(headerCellStyle);
+
+              Cell cell = headerRow.createCell(2);
+            cell.setCellValue("Input");
+            cell.setCellStyle(headerCellStyle);
+
+
+        // Create Cell Style for formatting Date
+        CellStyle dateCellStyle = workbook.createCellStyle();
+        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+
+        // Create Other rows and cells with employees data
+        int rowNum = 1;
+
+// ==========================================================================
+
+    //    for(Employee employee: employees) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0)
+                    .setCellValue('TC01');
+
+            row.createCell(1)
+                    .setCellValue('Add Gift Card');
+
+           // Cell dateOfBirthCell = row.createCell(2);
+           // dateOfBirthCell.setCellValue(employee.getDateOfBirth());
+           // dateOfBirthCell.setCellStyle(dateCellStyle);
+
+            row.createCell(2)
+                    .setCellValue('Gift Card should be added');
+
+            row.createCell(3)
+                    .setCellValue('added/niot added');
+
+             if (pass)
+             row.createCell(4)
+                    .setCellValue('Passed');
+             else 
+
+               row.createCell(4)
+                    .setCellValue('Failed');
+            
+
+
+   //     }
+// ========================================================================================
+		// Resize all columns to fit the content size
+        for(int i = 0; i < columns.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Write the output to a file
+        FileOutputStream fileOut = new FileOutputStream(REPORTFILE);
+        workbook.write(fileOut);
+        fileOut.close();
+    }
+}
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
