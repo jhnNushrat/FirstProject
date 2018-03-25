@@ -1,0 +1,15 @@
+ Volume in drive C is Local Disk
+ Volume Serial Number is B0F0-33DE
+
+ Directory of C:\Git
+
+03/22/2018  12:49 AM    <DIR>          .
+03/22/2018  12:49 AM    <DIR>          ..
+03/21/2018  11:38 PM    <DIR>          hello-world
+03/22/2018  12:28 AM               434 index.html
+03/22/2018  12:43 AM               486 index1.html
+03/22/2018  12:47 AM               539 index11.html
+03/22/2018  12:49 AM                 0 java.txt
+03/22/2018  12:27 AM                18 test1.txt
+               5 File(s)          1,477 bytes
+               3 Dir(s)  145,033,826,304 bytes free

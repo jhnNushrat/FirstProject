@@ -1,0 +1,55 @@
+public class ReadDB {
+	
+	
+	public	static void readdb(String dbConnectionURL, String usernm, String password, String sqlQuery) throws Exception {
+			
+			ResultSet rs = null;
+			Statement statement = null;
+			Connection cn = null;
+			sqlQuery = "Select * from student";
+			try {
+				Driver driver = new oracle.jdbc.OracleDriver();
+				DriverManager.registerDriver(driver);
+
+				// Create a connection from the Driver Manager.
+				cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:orcl", "bud", "bud");
+				// Open a statement and run the query fetching a resultset
+				statement = cn.createStatement();
+				rs = statement.executeQuery(sqlQuery);
+
+				int i = 0;
+				while (rs.next()) {
+
+					Map<String, String> recordVal = new HashMap<String, String>();
+					System.out.println("Checking columns value : " + rs.getString(1) +" | "+ rs.getString(2) + " | " + rs.getString(3));
+					//recordVal.put("x" + i, rs.getString(1));
+					i++;
+				}
+
+			} catch (SQLException sqlEx) {
+				System.out.println("Below SQL exception happened while connecting and executing sqlQuery to Database.");
+				System.out.println(sqlEx.getStackTrace());
+				System.out.println(sqlEx);
+				sqlEx.printStackTrace();
+				throw sqlEx;
+			} catch (Exception ex) {
+				System.out.println("Below exception happened while connecting and executing sqlQuery to Database.");
+				System.out.println(ex.getStackTrace());
+				System.out.println(ex);
+				ex.printStackTrace();
+				throw ex;
+			} finally {
+				if (rs != null)
+					rs.close();
+				if (statement != null)
+					statement.close();
+				if (cn != null)
+					cn.close();
+			}
+
+		}
+
+		
+	
+	}
+
